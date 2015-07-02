@@ -26,4 +26,5 @@ dashboard_rails/output.sql
 dashboard_rails/salida
 dashboard_rails/scriptPE2_microarr.rb
 dashboard_rails/scriptPE2.rb
-
+dashboard_rails/public/tmpQuery/
+dashboard_rails/public/tmpQuery/*
