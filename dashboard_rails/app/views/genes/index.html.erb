@@ -1,0 +1,27 @@
+<h1>Listing genes</h1>
+
+<table>
+  <tr>
+    <th>Ensembl</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Chromosome</th>
+    <th>Proteins info</th>
+    <th>Nextprots info</th>
+  </tr>
+
+  <% @genes.each do |gene| %>
+    <tr>
+      <td><%= gene.ensembl %></td>
+      <td><%= gene.name %></td>
+      <td><%= gene.description %></td>
+      <td><%= gene.chromosome %></td>
+			<% gene.proteins.each do |pr|  %>
+				<td><%="#{pr.uniprot} #{pr.level} #{pr.curated}"%></td>
+		  <% end %>
+			<% gene.nextprots.each do |pr|  %>
+				<td><%="#{pr.nextprotID} #{pr.missing}"%></td>
+		  <% end %>
+    </tr>
+  <% end %>
+</table>

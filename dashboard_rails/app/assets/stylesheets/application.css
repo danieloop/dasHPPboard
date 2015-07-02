@@ -1,0 +1,294 @@
+/*
+*= require jquery-ui
+*= require bootstrap_and_overrides
+*= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+*/
+html, body, div, span, object, iframe, 
+h1, h2, h3, h4, h5, h6, p, blockquote, pre, 
+a, abbr, acronym, address, big, cite, code, del, dfn, em, 
+img, ins, kbd, q, samp, small, strike, strong, sub, sup, 
+tt, var, dl, dt, dd, ol, ul, li, 
+fieldset, form, label, legend, 
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+
+/*contenedor de todo el body*/
+#container{
+  font-family: tahoma, sans-serif;
+	font-size: 10pt;
+  background: #fff;
+}
+
+/*estilo del header*/
+#header{
+/*  position: absolute;
+  top: 0px;
+  left: 0px;
+	height:129;*/
+	min-width:690px;
+	margin: 0;
+  width: 100%;
+	height: 129;
+	background-size: 100%;
+	background: -webkit-linear-gradient(#AAAAAA, white); /* For Safari 5.1 to 6.0  */
+	background: -o-linear-gradient(#AAAAAA, white); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#AAAAAA, white); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#AAAAAA, white); /* Standard syntax */
+/*  background-color: #B6DDD3;
+	border-bottom: solid 1px #000000;*/
+}
+
+#hImgLeft{
+	float:left;
+	background-color: inherit;
+}
+
+#hImgRight{
+	float:right;
+	background-color: inherit;
+}
+
+.footer{
+	border-top: solid 1px #e5e5e5;
+	text-align: center;
+	padding: 1.5em 0em 1.5em 0em;
+}
+
+p.footer{
+	font-size:115%;
+	text-align:left;
+	margin-left:40px;
+}
+
+th,td {
+	font-weight:normal;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link,
+a:visited {
+  color: #006699;
+}
+
+a:hover {
+  color: #f90;
+}
+
+#main h1 {
+  font-size: 40px;
+  font-weight: normal;
+  line-height: 40px;
+  letter-spacing: -1px;
+}
+
+#main h2 {
+  font-size: 28px;
+  font-weight: normal;
+  line-height: 28px;
+  letter-spacing: -1px;
+}
+
+#main p {
+  margin: 20px 0;
+
+  font-size: 15px;
+
+  line-height: 20px;
+}
+
+#main ul, #main ol {
+  margin: 20px;
+}
+
+#main li {
+  font-size: 15px;
+
+  line-height: 20px;
+}
+
+#main ul li {
+/*  list-style-type: square;*/
+}
+
+#headText{
+  margin: 40px;
+}
+
+#tableDiv{
+	/*margin: 80px;*/
+}
+
+.simple_overlay {
+		position:absolute;
+ /* must be initially hidden */
+    display:none;
+
+ /* place overlay on top of other elements */
+    z-index:10000;
+
+ /* styling */
+    background-color:#fff;
+
+    width:675px;
+    min-height:200px;
+    border:1px solid #666;
+
+ /* CSS3 styling for latest browsers */
+		box-shadow: 0 0 40px 5px #000;
+    -moz-box-shadow:0 0 40px 5px #000;
+    -webkit-box-shadow: 0 0 40px #000;
+}
+
+.simple_overlay .close {
+    background-image:url(/assets/images/close.png);
+    position:absolute;
+    right:-15px;
+    top:-15px;
+    cursor:pointer;
+    height:35px;
+    width:35px;
+}
+
+div.contentWrap {
+  overflow-y:auto;
+/*  text-align:justify;*/
+  padding: 14px;
+  font-family: Trebuchet MS,Georgia, Arial, serif;
+  font-size: 12px;
+  color: #000;
+}
+
+.contentWrap li{
+	text-align:center;
+	list-style-type: none;
+}
+
+.contentWrap ul{
+	list-style-type: upper-roman;
+}
+
+.contentWrap img{
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#fillLayout{
+	margin-left:50px;
+	margin-right:auto;
+}
+
+.hintWrap{
+	text-align:justify;
+}
+
+#hint {
+	cursor: pointer;
+}
+
+img.help{
+	width:12px;
+	height:12px;
+}
+
+
+.ui-tabs {
+	zoom: 1;
+}
+.ui-tabs .ui-tabs-nav {
+	list-style: none;
+	position: relative;
+	padding: 0;
+	margin: 0;
+}
+.ui-tabs .ui-tabs-nav li {
+	position: relative;
+	float: left;
+	margin: 0 3px -2px 0;
+	padding: 0;
+}
+.ui-tabs .ui-tabs-nav li a {
+	display: block;
+	border-top-right-radius:5px;
+	border-top-left-radius:5px;
+	padding: 10px 20px;
+	background: #f0f0f0;
+	border: 2px #ccc solid;
+	border-bottom-color: #ccc;
+	outline: none;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+	padding: 10px 20px 12px 20px;
+	background: #fff;
+	border-bottom-style: none;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+.ui-tabs .ui-tabs-nav li.ui-state-processing a {
+	cursor: default;
+}
+.ui-tabs .ui-tabs-nav li a,
+.ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a {
+	cursor: pointer;
+}
+.ui-tabs .ui-tabs-panel {
+	display: block;
+	clear: both;
+	border-top: 2px #ccc solid;
+	padding: 10px;
+}
+.ui-tabs .ui-tabs-hide {
+	display: none;
+}
+
+.table th, .table td{
+	text-align: center !important;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+	   background-color: #E8E8E8;
+}
+
+.long-query{
+	width: 600px;
+	margin-right:10px;
+}
+
+.tag-query{
+	cursor: pointer;
+	font-size:16pt; 
+	margin-bottom:10px;
+}
+
+.wrapper-center{
+	text-align:center;
+}
+
+.button-query{
+	font-size:15px;
+	font-weight:bold;
+}
+
+#queryInfo h2{
+	margin-bottom:14px;
+}
+
+#queryInfo p{
+	font-size:12px;
+	margin:0px;
+}
+
+.flotaDerecha{
+	float:right;
+	font-size:14px;
+	font-weight:bold;
+}

@@ -1,0 +1,28 @@
+:javascript
+  $(document).ready(function(){
+    var $j=jQuery.noConflict();
+    $j("img[rel]").overlay();
+    $j("label[rel]").overlay();
+  });
+.simple_overlay{:id=>"findHint"}
+  .contentWrap
+    %h2 Valid input
+    %br
+    %br
+    Gene symbols, Ensembl Gene Ids, Uniprot Ids and Nextprot Ids are allowed.
+#tableDiv
+  #selectVersions{:style=>"display:none"}
+    Select GENCODE annotations version:
+    %select{:name=>"gencode",:id=>"selectGencode",:class=>"gencodeSel"}
+      %option{:value=>"V18",:selected=>"selected"}
+        GENCODE version 18
+    %br
+    %br
+  = form_tag("results",method: "get",:class=>'form-group') do
+    .wrapper-center
+      %br
+      = label_tag(:query,"Find experiments related to your genes or proteins",:class=>'tag-query',:id=>'hint',:rel=>'#findHint')
+      = image_tag("help.png",:class=>'help',:id=>'hint',:rel=>'#findHint')
+      %br
+      = text_field_tag(:query,nil,:class=>'long-query')
+      = submit_tag("Search",:class=>'button-query')

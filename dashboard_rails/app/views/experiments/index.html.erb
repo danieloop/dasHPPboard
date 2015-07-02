@@ -1,0 +1,41 @@
+<h1>Listing experiments</h1>
+
+<table>
+	<tr>
+		<th>Link to the experiment</th>
+    <th>Cell Type</th>
+    <th>Project</th>
+    <th>Cell Name</th>
+    <th>Experiment Type</th>
+    <th>Compartment</th>
+    <th>Fraction</th>
+    <th>Laboratory</th>
+    <th>Experiment ID</th>
+    <th>Sample ID</th>
+    <th>divIdentifier</th>
+    <th>divIdBox</th>
+    <th>Genes</th>
+    <th>Nextprots</th>
+    <th>Uniprots</th>
+  </tr>
+
+  <% @experiments.each do |experiment| %>
+    <tr>
+	<td><a href='http://sphppdashboard.cnb.csic.es/?div=<%=experiment.divIdBox%>&smpdiv=<%=experiment.experimentId%>&over=<%=experiment.divIdentifier%>&cellt=<%=experiment.cellType%>'>Link</a></td>
+      <td><%= experiment.cellType %></td>
+      <td><%= experiment.project %></td>
+      <td><%= experiment.cellName %></td>
+      <td><%= experiment.experimentType %></td>
+      <td><%= experiment.compartment %></td>
+      <td><%= experiment.fraction %></td>
+      <td><%= experiment.lab %></td>
+      <td><%= experiment.experimentId %></td>
+      <td><%= experiment.sampleId %></td>
+      <td><%= experiment.divIdentifier %></td>
+      <td><%= experiment.divIdBox %></td>
+      <td><%= experiment.genes.gsub("\t","@") %></td>
+      <td><%= experiment.nextprots.gsub("\t","@") %></td>
+      <td><%= experiment.uniprots.gsub("\t","@") %></td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,23 @@
+<h1>Listing proteins</h1>
+
+<table>
+  <tr>
+    <th>Nextprot</th>
+    <th>Missing?</th>
+		<th>corresponding gene</th>
+  </tr>
+
+  <% @nextprots.each do |nxp| %>
+    <tr>
+      <td><%= nxp.nextprotID %></td>
+      <td><%= nxp.missing %></td>
+      <td>
+        <% if !nxp.gene.nil? %>
+          <%= nxp.gene.ensembl %>
+        <% else%>
+          NA
+        <% end%>
+			</td>
+    </tr>
+  <% end %>
+</table>

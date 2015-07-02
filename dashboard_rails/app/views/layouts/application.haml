@@ -1,0 +1,14 @@
+%html(lang="en")
+  %head
+    %meta{:content => "text/html; charset=utf-8", 'http-equiv' => "Content-Type"}
+    %meta{:name => "description", :content => "Web site that contents experiment results from different human projects"}
+    %meta{:name => "keywords", :content => "bioinformatics, gene expression, RNA-Seq, ENCODE, Illumina HBM"}
+    %title= title
+    = csrf_meta_tag
+    = render 'layouts/stylesheets'
+  %body{:id => "body"}
+    %container{:id => "container"}
+      =# render 'layouts/header'
+      %div{:id => "main", :style => "clear: both"}
+        = yield
+      = #render 'layouts/footer'

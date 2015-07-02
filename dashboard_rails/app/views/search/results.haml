@@ -1,0 +1,154 @@
+:javascript
+  function proteinEvidence(level){
+    var returnValue = "";
+    switch(level) {
+      case 1:
+        returnValue = "Protein level"
+        break;
+      case 2:
+        returnValue = "Transcript level"
+        break;
+      case 3:
+        returnValue = "Iferred from homology"
+        break;
+      case 4:
+        returnValue = "Protein predicted"
+        break;
+      case 5:
+        returnValue = "Protein uncertain"
+        break;
+      default:
+        returnValue = "-";
+      }
+      return returnValue;
+  }
+
+  function booleanStringToString(input){
+    var returnValue = "";
+    if(input){
+      returnValue = "Yes";
+    }else{
+      returnValue = "No";
+    }
+    return returnValue;
+  }
+
+  function createGeneInfo(node,info,relatedInfo,relatedInfo2){
+    node.append($("<h2></h2>").text("Gene Information"));
+    node.append($("<p></p>").text("Name: "+ info.name));
+    node.append($("<p></p>").text("Ensembl ID: "+ info.ensembl));
+    if(info.description!=""){
+      node.append($("<p></p>").text("Description: "+ info.description));
+    }
+    node.append($("<p></p>").text("Chromosome: "+ info.chromosome));
+    if(relatedInfo!="" && relatedInfo!=null){
+      node.append($("<p></p>").text("Proteins associated: "+relatedInfo));
+    }
+    if(relatedInfo2!="" && relatedInfo2!=null){
+      node.append($("<p></p>").text("Associated Nextprot ID: "+relatedInfo2.nextprotID));
+      node.append($("<p></p>").text("Missing?: " + booleanStringToString(relatedInfo2.missing)));
+    }
+  }
+
+  function createUniprotInfo(node,info,relatedInfo,relatedInfo2){
+    node.append($("<h2></h2>").text("Protein Information"));
+    node.append($("<p></p>").text("Name: "+ info.uniprot));
+    node.append($("<p></p>").text("Protein evidence level: "+ proteinEvidence(info.level)));
+    node.append($("<p></p>").text("Curated?: "+ booleanStringToString(info.curated)));
+    if(relatedInfo2!="" && relatedInfo2!=null){
+      node.append($("<p></p>").text("Associated Nextprot ID: "+relatedInfo2.nextprotID));
+      node.append($("<p></p>").text("Missing?: " + booleanStringToString(relatedInfo2.missing)));
+    }
+    if(relatedInfo!="" && relatedInfo!=null){
+      node.append($("<p></p>").text("Associated gene: "+relatedInfo.name));
+      if(relatedInfo.description!=""){
+        node.append($("<p></p>").text("Description: "+ relatedInfo.description));
+      }
+      node.append($("<p></p>").text("Chromosome: "+relatedInfo.chromosome));
+    }
+  }
+
+  function createNextprotInfo(node,info,relatedInfo,relatedInfo2){
+    node.append($("<h2></h2>").text("Protein Information"));
+    if(relatedInfo2!="" && relatedInfo2!=null){
+      node.append($("<p></p>").text("Name: "+ relatedInfo2.uniprot));
+      node.append($("<p></p>").text("Protein evidence level: "+ proteinEvidence(relatedInfo2.level)));
+      node.append($("<p></p>").text("Curated?: "+ booleanStringToString(relatedInfo2.curated)));
+    }
+    node.append($("<p></p>").text("Associated Nextprot ID: "+info.nextprotID));
+    node.append($("<p></p>").text("Missing?: " + booleanStringToString(info.missing)));
+    if(relatedInfo!="" && relatedInfo!=null){
+      node.append($("<p></p>").text("Associated gene: "+relatedInfo.name));
+      if(relatedInfo.description!=""){
+        node.append($("<p></p>").text("Description: "+ relatedInfo.description));
+      }
+      node.append($("<p></p>").text("Chromosome: "+relatedInfo.chromosome));
+    }
+  }
+  $(document).ready(function(){
+    var gene = #{@geneResults.to_json};
+    var uniprot = #{@uniprotResults.to_json};
+    var nextprot = #{@nextprotResults.to_json};
+    var relatedNextprots = #{@relatedNextprotNames.to_json};
+    var relatedUniprots = #{@relatedUniprotNames.to_json};
+    if(gene!=null){
+      var relatedProteins = "#{@relatedProteinNames}";
+      createGeneInfo($("#queryInfo"),gene,relatedProteins,relatedNextprots);
+    }else if(uniprot!=null){
+      var relatedGenes = #{@relatedGeneNames.to_json};
+      createUniprotInfo($("#queryInfo"),uniprot,relatedGenes,relatedNextprots);
+    }else if(nextprot!=null){
+      var relatedGenes = #{@relatedGeneNames.to_json};
+      createNextprotInfo($("#queryInfo"),nextprot,relatedGenes,relatedUniprots);
+    }
+    if("#{@queryExperiments.empty?}"=="true" && "#{@queryPath.nil?}"=="true"){
+      $("#resultsTable").append($("<h3></h3>").text("#{@input} doesn't match with any identifier in our database"));
+    }else{
+      $("#resultsTable").append($("<br>"));
+      $("#resultsTable").append($("<h2></h2>").text("Table"));
+      $("#resultsTable").append($("<br>"));
+      var tablita = $("<table></table>").addClass("display table table-bordered table-striped").attr('id','tableExperiments').attr('width','100%').attr('cellspacing','0');
+      var titles = ["Link to results","project","cellName","experimentType","experimentId","sampleId"];
+      var miTr = $("<tr></tr>");
+      for (var index in titles){
+        miTr.append($("<th></th>").text(titles[index]));
+      }
+      tablita.append($("<thead></thead>").append(miTr));
+      $("#resultsTable").append(tablita);
+      var $j=jQuery.noConflict();
+      $j('#tableExperiments').dataTable({
+        "ajax": "#{@queryPath}", 
+        "pageLength":10,
+        "deferRender": true,
+        "pagingType": "full_numbers",
+        "renderer": "bootstrap",
+        "processing": false,
+        "columns":[
+          {"data":"url"},
+          {"data":"project"},
+          {"data":"cellName"},
+          {"data":"experimentType"},
+          {"data":"experimentId"},
+          {"data":"sampleId"}
+          ],
+          "columnDefs":[{"targets":0,"orderable":false}],
+          "order": [[4,"desc"]]
+      });
+    }
+  });
+
+#tableDiv
+  #selectVersions{:style=>"display:none"}
+    Select GENCODE annotations version:
+    %select{:name=>"gencode",:id=>"selectGencode",:class=>"gencodeSel"}
+      %option{:value=>"V18",:selected=>"selected"}
+        GENCODE version 18
+    %br
+    %br
+  %h2
+    Results
+  = link_to "Return to search", {:controller=>:search,:action=>:search},:class=>'flotaDerecha'
+  %br
+  %br
+  #resultsTable
+    #queryInfo

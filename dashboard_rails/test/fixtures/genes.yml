@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ensembl: MyString
+  name: MyString
+  description: MyText
+  chromosome: MyString
+
+two:
+  ensembl: MyString
+  name: MyString
+  description: MyText
+  chromosome: MyString

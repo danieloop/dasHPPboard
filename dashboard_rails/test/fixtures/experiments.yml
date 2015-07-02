@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cellType: MyString
+  project: MyString
+  cellName: MyString
+  experimentType: MyString
+  component: MyString
+  fraction: MyString
+  lab: MyString
+  experimentId: MyString
+  sampleId: MyString
+  divIdentifier: MyString
+  divIdBox: MyString
+
+two:
+  cellType: MyString
+  project: MyString
+  cellName: MyString
+  experimentType: MyString
+  component: MyString
+  fraction: MyString
+  lab: MyString
+  experimentId: MyString
+  sampleId: MyString
+  divIdentifier: MyString
+  divIdBox: MyString
